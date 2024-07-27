@@ -17,6 +17,16 @@ export default function FindCarSection({ allOwners }: FindCardProps) {
                 e.target.value);
         })
     }
+    if (allOwners.length == 0) {
+        return (
+            <>
+                <Link href="/"><button className='w-20 p-2 mt-2 ml-2'>Back</button></Link>
+                <div className='w-screen h-screen flex justify-center items-center'>
+                    <h1 className='text-4xl font-semibold text-amber-700'>no car listed currently</h1>
+                </div>
+            </>
+        )
+    }
 
 
     return (

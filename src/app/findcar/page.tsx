@@ -20,6 +20,7 @@ export default async function page() {
     const allOwners = await prisma.carowner.findMany();
     // console.log("owners=", allOwners);
     return (
+
         <>
             <FindCarSection allOwners={allOwners} />
         </>
