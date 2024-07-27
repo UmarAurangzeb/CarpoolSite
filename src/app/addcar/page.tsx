@@ -12,7 +12,7 @@ const validationSchema = Yup.object({
     nuID: Yup.string().required('NU ID is required').length(8, "please enter a valid id"),
     OwnerName: Yup.string().required('Owner Name is required').max(20),
     CarName: Yup.string().required('Car Name is required').max(20),
-    MonthlyCharges: Yup.number().required('Monthly Charges are required').max(5000, 'Monthly charges cannot exceed 5000'),
+    MonthlyCharges: Yup.number().required('Monthly Charges are required').max(7000, 'Monthly charges cannot exceed 5000'),
     CompleteRoute: Yup.string().required('Complete Route is required').max(120, "route limit exceeded"),
     Whatsapp: Yup.string().required('Whatsapp is required').min(11).max(11)
 });

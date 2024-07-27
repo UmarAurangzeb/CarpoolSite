@@ -4,6 +4,10 @@ import { Owner } from '../findcar/page'
 import Link from 'next/link';
 import SearchBox from './SearchBox';
 import OwnerCard from './OwnerCard';
+export const dynamic = "force-dynamic";
+
+
+
 
 interface FindCardProps {
     allOwners: Owner[];
