@@ -4,6 +4,7 @@ import SearchBox from '../components/SearchBox';
 import OwnerCard from '../components/OwnerCard';
 import Link from 'next/link';
 import FindCarSection from '../components/FindCarSection';
+export const dynamic = "force-dynamic";
 
 export type Owner = {
     nuid: string;
