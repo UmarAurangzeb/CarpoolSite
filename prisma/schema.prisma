@@ -6,12 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 model Carowner {
-  nuid           String @id
+  nuid           String @id @map("_id")
   OwnerName      String
   carname        String
   monthlycharges Int    @default(0)
