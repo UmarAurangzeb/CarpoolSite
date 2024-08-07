@@ -24,7 +24,7 @@ export default function FindCarSection({ allOwners }: FindCardProps) {
     if (allOwners.length == 0) {
         return (
             <>
-                <div className='w-screen h-screen flex flex-col justify-center gap-y-4 items-center'>
+                <div className='w-screen h-screen flex flex-col items-center justify-center gap-y-4 mx-auto '>
                     <h1 className='text-4xl font-semibold'>no cars listed currently!</h1>
                     <Link href={'./addcar'}><button>Add a car</button></Link>
                 </div>

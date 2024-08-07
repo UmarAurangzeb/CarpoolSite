@@ -20,7 +20,7 @@ export default function Emailtemplate({ token }: EmailTemplateProps) {
             >
                 <Text className="font-bold text-2xl ml-4">To complete your email registration,click the following button</Text>
                 <Button
-                    href={`${process.env.BASE_URL}/verifytoken/?token=${token}`} className="mx-auto w-50"
+                    href={`https://www.fastcarpool.live/verifytoken/?token=${token}`} className="mx-auto w-50"
                     style={{ background: "#000", color: "#fff", padding: "12px 20px" }}
                 >
                     Verify
