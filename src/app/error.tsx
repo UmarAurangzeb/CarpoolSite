@@ -9,7 +9,6 @@ export default function Error({
     return (
         <div className="w-screen h-screen flex justify-center items-center text-white flex-col gap-y-2">
             <h2>Something went wrong!</h2>
-            <div>{error.message}</div>
             <button onClick={() => reset()}>Try again</button>
         </div>
     );
