@@ -1,48 +1,63 @@
 import prisma from '../../lib/db';
 
 type CarData = {
-    nuID: string;
+    OwnerEmail: string
     OwnerName: string;
     CarName: string;
+    AccessType: string;
+    BriefDescription?: string;
     MonthlyCharges: number;
     CompleteRoute: string;
     Whatsapp: string
+
 };
 
 export async function POST(req: Request) {
     try {
-        const ownerData = await req.json();
+        const { ownerData, email } = await req.json();
 
-        const not_unique_id = await prisma.carowner.findUnique({
-            where: {
-                nuid: ownerData.nuID
+        if (ownerData.AccessType === 'Semester') {
+            ownerData.MonthlyCharges = Number(ownerData.MonthlyCharges);
+            console.log("ownerdata:", ownerData);
+            const newCar = await prisma.carowner.create({
+                data: {
+                    OwnerEmail: email,
+                    OwnerName: ownerData.OwnerName,
+                    carname: ownerData.CarName,
+                    AccessType: ownerData.AccessType,
+                    monthlycharges: ownerData.MonthlyCharges,
+                    completeRoute: ownerData.CompleteRoute,
+                    WhatsApp: ownerData.Whatsapp
+
+                },
+            });
+            if (!newCar) {
+                return Response.json({ message: "error adding car" }, { status: 400 });
             }
-        })
-        console.log(not_unique_id);
-        if (not_unique_id) {
-            console.log("please enter a unique id");
-            return Response.json({ error: "id already exists" }, { status: 501 });
+            return Response.json(newCar, { status: 200 })
         }
 
-
-        ownerData.MonthlyCharges = Number(ownerData.MonthlyCharges);
-        console.log("ownerdata:", ownerData);
         const newCar = await prisma.carowner.create({
             data: {
-                nuid: ownerData.nuID,
+                OwnerEmail: email,
                 OwnerName: ownerData.OwnerName,
                 carname: ownerData.CarName,
-                monthlycharges: ownerData.MonthlyCharges,
+                AccessType: ownerData.AccessType,
+                BriefDescription: ownerData.BriefDescription,
                 completeRoute: ownerData.CompleteRoute,
                 WhatsApp: ownerData.Whatsapp
 
             },
         });
+        if (!newCar) {
+            return Response.json({ message: "error adding car" }, { status: 400 });
+        }
         return Response.json(newCar, { status: 200 })
+
     }
     catch (e) {
         console.log("error posting data ", e);
-        return Response.json({ error: 'Error posting data' }, { status: 500 });
+        return Response.json({ message: 'error posting data' }, { status: 500 });
     }
 
 }

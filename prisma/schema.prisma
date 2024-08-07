@@ -6,16 +6,36 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  // provider = "sqlite"
+  // url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model Carowner {
-  nuid           String @id @map("_id")
-  OwnerName      String
-  carname        String
-  monthlycharges Int    @default(0)
-  completeRoute  String
-  WhatsApp       String
+  owner            User     @relation(fields: [OwnerEmail], references: [email])
+  id               String   @id @default(cuid())
+  OwnerEmail       String
+  AccessType       String //Daily or Semester
+  BriefDescription String?
+  OwnerName        String
+  carname          String
+  monthlycharges   Int?     @default(0)
+  completeRoute    String
+  WhatsApp         String
+  createdAt        DateTime @default(now())
+}
+
+model User {
+  email             String     @id @unique
+  id                String     @default(cuid())
+  username          String
+  password          String
+  createdAt         DateTime   @default(now())
+  verificationtoken String
+  tokenexpiry       DateTime
+  isVerified        Boolean    @default(false)
+  carowners         Carowner[]
 }

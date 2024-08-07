@@ -1,9 +1,9 @@
 import React from 'react'
 import prisma from '../lib/db'
-import SearchBox from '../components/SearchBox';
-import OwnerCard from '../components/OwnerCard';
+import SearchBox from '../Nextcomponents/SearchBox';
+import OwnerCard from '../Nextcomponents/OwnerCard';
 import Link from 'next/link';
-import FindCarSection from '../components/FindCarSection';
+import FindCarSection from '../Nextcomponents/FindCarSection';
 export const dynamic = "force-dynamic";
 import { Metadata } from 'next';
 

@@ -3,9 +3,17 @@
 @tailwind utilities;
 
 body {
-  @apply bg-slate-900
+    @apply bg-black text-white
 }
 
 button {
-  @apply text-white bg-amber-700 border-2 rounded-lg px-4 py-4
+    @apply bg-slate-900 p-2 border-2 rounded-md hover:bg-slate-950
+}
+
+label {
+    @apply text-white font-medium text-lg
+}
+
+input {
+    @apply px-2 py-2 border-2 rounded-md bg-black text-white mt-1
 }

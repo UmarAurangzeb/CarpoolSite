@@ -1,16 +1,60 @@
-import Link from 'next/link';
+
 import React from 'react'
-import prisma from './lib/db';
+import prisma from './lib/db'
+// import SearchBox from '../Nextcomponents/SearchBox';
+// import OwnerCard from '.';
+import Link from 'next/link';
+import FindCarSection from './Nextcomponents/FindCarSection';
+export const dynamic = "force-dynamic";
+import { Metadata } from 'next';
+import { Owner, allOwners } from '../types/dbtypes'
+// import AccessTypeContext from '../app/Context/AccessTypeContext';
+
+export const metadata: Metadata = {
+  title: 'Home',
+};
 
 
+export default async function page({ searchParams }: any) {
+  const AccessType = searchParams["AccessType"];
+  console.log(AccessType);
+  let allOwners: Owner[] = []
+  if (AccessType === undefined || AccessType === "Daily") {
+    const twentyFourHoursAgo = new Date(Date.now() - (24 * 60 * 60 * 1000));
+    // console.log("time", twentyFourHoursAgo);
+    // console.log(twentyFourHoursAgo);
+    allOwners = await prisma.carowner.findMany({
+      where: {
+        AccessType: "Daily",
+        createdAt: {
+          lte: new Date(Date.now()),
+          gte: twentyFourHoursAgo
+        }
+      }
 
-export default async function Home() {
+    });
+    // console.log(allOwners)
+  }
+  else if (AccessType === "Semester") {
+    console.log("bhau");
+    allOwners = await prisma.carowner.findMany(
+      {
+        where:
+        {
+          AccessType: "Semester"
+        }
+      }
+    );
+    // console.log(allOwners)
+  }
+
   return (
-    <div className='flex items-center justify-center h-screen'>
-      <div className='flex flex-col w-full space-y-4 mx-auto my-auto justify-center items-center '>
-        <Link href={"/addcar"}><button className='w-48 lg:w-56' >Add a Car</button></Link>
-        <Link href={"/findcar"}><button className='w-48 lg:w-56'>Find a Car</button></Link>
+    <>
+
+      <div className='mt-4 w-full min-h-full'>
+        <FindCarSection key={AccessType} allOwners={allOwners} />
       </div>
-    </div>
+    </>
+
   )
 }
