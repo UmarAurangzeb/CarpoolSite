@@ -51,7 +51,7 @@ export default function Page({ email }: any) {
     return (
         <>
             <div className="h-full w-full mt-20 flex flex-col items-center justify-center">
-                <div className='bg-slate-900 w-4/5'>
+                <div className='bg-slate-900 w-full md:w-4/5 '>
                     <ToastContainer
                         position="bottom-right"
                         autoClose={3000}

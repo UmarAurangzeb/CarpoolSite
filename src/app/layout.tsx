@@ -25,13 +25,13 @@ export default async function RootLayout({
       <Provider session={session}>
         <GoogleAnalytics />
         <body className={`${inter.className}`}>
-          <div className="relative min-h-[100vh] flex flex-col">
+          <div className="relative min-h-[100vh] h-full flex flex-col">
             <ThemeProvider>
               <Navbar />
               <main className="flex-grow">
                 {children}
               </main>
-              <Footer />
+              {/* <Footer /> */}
             </ThemeProvider>
           </div>
         </body>

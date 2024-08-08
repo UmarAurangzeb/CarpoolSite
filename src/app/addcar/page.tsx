@@ -6,7 +6,7 @@ import { authOptions } from "../api/auth/[...nextauth]/options";
 export default async function page() {
     const session = await getServerSession(authOptions);
     console.log("session in client", session);
-    if (!session || (session && session.user.isVerified !== true)) {
+    if (!session || (session && session?.user.isVerified !== true)) {
         redirect('/register?callbackUrl=/addcar');
     }
     return (
