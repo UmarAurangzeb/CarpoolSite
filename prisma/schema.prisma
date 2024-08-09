@@ -36,5 +36,5 @@ model User {
   carowners         Carowner[]
 }
 
-//  provider = "sqlite"
-//   url      = "file:./dev.db"
+// provider = "sqlite"
+// url      = "file:./dev.db"

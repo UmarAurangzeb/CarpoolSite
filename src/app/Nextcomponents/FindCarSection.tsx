@@ -21,37 +21,39 @@ export default function FindCarSection({ allOwners }: FindCardProps) {
                 e.target.value);
         })
     }
-    if (allOwners.length == 0) {
-        return (
-            <>
-                <div className='w-screen h-screen flex flex-col items-center justify-center gap-y-4 mx-auto '>
-                    <h1 className='text-2xl md:text-4xl font-semibold mx-auto'>no cars listed currently!</h1>
-                    <Link href={'./addcar'}><button>Add a car</button></Link>
-                </div>
-            </>
-        )
-    }
+
 
 
     return (
         <div >
-            <div className='flex flex-col max-w-7xl items-center md:items-stretch mt-24'>
-                <div className='flex max-w-9xl mx-auto lg:justify-between '>
+            <div className='flex flex-col max-w-9xl items-center md:items-stretch mt-24'>
+                <div className='flex max-w-9xl lg:justify-items-stretch lg:gap-x-36 mx-auto  '>
                     <AccesstypeButtons />
                     <SearchBox handleSearch={handleSearch} />
                 </div>
-                <div className='flex flex-wrap gap-y-2 gap-x-2 justify-center '>
+                {
+                    allOwners.length == 0 &&
 
-                    {OwnerData.filter((item) => {
-                        return searchRoute.trim() == '' ? item : item['completeRoute'].toLowerCase().includes(searchRoute.toLowerCase())
-                    }).map((owner, index) => {
-                        return (
-                            <div key={index} >
-                                <OwnerCard owner={owner} deleteOption={false} />
-                            </div>
-                        );
-                    })}
-                </div>
+                    <div className=' w-screen h-screen flex flex-col items-center justify-center gap-y-4 mx-auto  '>
+                        <h1 className='text-3xl md:text-4xl font-semibold mx-auto'>no cars listed currently!</h1>
+                        <Link href={'./addcar'}><button>Add a car</button></Link>
+                    </div>
+
+                }
+
+                {allOwners.length > 0 &&
+                    <div className='flex flex-wrap gap-y-2 gap-x-2 justify-center mx-auto  '>
+
+                        {OwnerData.filter((item) => {
+                            return searchRoute.trim() == '' ? item : item['completeRoute'].toLowerCase().includes(searchRoute.toLowerCase())
+                        }).map((owner, index) => {
+                            return (
+                                <div key={index} >
+                                    <OwnerCard owner={owner} deleteOption={false} />
+                                </div>
+                            );
+                        })}
+                    </div>}
             </div>
         </div>
     )
