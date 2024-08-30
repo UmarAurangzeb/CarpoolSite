@@ -57,9 +57,9 @@ export default function OwnerCard({ owner, deleteOption }: OwnerCardProps) {
                 theme="light"
                 transition={Bounce}
             />
-            <div className='w-72 h-80 text-wrap  border-2 rounded-md border-white font-semibold text-md relative  pl-2 bg-slate-900 text-white flex flex-col gap-y-2 overflow-y-auto'>
+            <div className='w-80 h-[330px] py-2 pt-6 mb-8 text-wrap  border-2 rounded-md border-white font-semibold text-md relative  pl-2 bg-slate-900 text-white flex flex-col gap-y-2 overflow-y-auto'>
                 {deleteOption && <AlertDialog>
-                    <AlertDialogTrigger className='bg-transparent border-0 w-fit  p-0 absolute right-0 '> <div ><IoCloseCircleSharp className='text-red-600 text-xl float-end cursor-pointer' /> </div></AlertDialogTrigger>
+                    <AlertDialogTrigger className='bg-transparent border-0 w-fit  p-0 absolute top-0 right-0 '> <div ><IoCloseCircleSharp className='text-red-600 text-xl float-end cursor-pointer' /> </div></AlertDialogTrigger>
                     <AlertDialogContent className='bg-black'>
                         <AlertDialogHeader className=''>
                             <AlertDialogTitle className='text-red-500 font-bold'>Are you absolutely sure?</AlertDialogTitle>

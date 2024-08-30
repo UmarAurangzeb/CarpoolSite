@@ -24,7 +24,7 @@ export default async function RootLayout({
     <html lang="en">
       <Provider session={session}>
         <GoogleAnalytics />
-        <body className={`${inter.className} w-screen`}>
+        <body className={`${inter.className}`}>
 
           <ThemeProvider>
             <Navbar />

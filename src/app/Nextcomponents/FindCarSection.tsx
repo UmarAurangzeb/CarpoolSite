@@ -27,7 +27,7 @@ export default function FindCarSection({ allOwners }: FindCardProps) {
     return (
         <div className='' >
             <div className='flex flex-col max-w-9xl items-center md:items-stretch mt-24'>
-                <div className='flex md:flex-row flex-col w-full lg:justify-center lg:gap-x-36 mx-auto '>
+                <div className='flex md:flex-row flex-col lg:justify-center lg:gap-x-36 mx-auto w-full px-4 '>
                     <AccesstypeButtons />
                     <SearchBox handleSearch={handleSearch} />
 

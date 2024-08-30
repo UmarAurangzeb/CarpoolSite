@@ -35,6 +35,3 @@ model User {
   isVerified        Boolean    @default(false)
   carowners         Carowner[]
 }
-
-// provider = "sqlite"
-// url      = "file:./dev.db"
