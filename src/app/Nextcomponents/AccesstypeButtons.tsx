@@ -17,7 +17,7 @@ export default function AccesstypeButtons() {
     };
 
     return (
-        <div className=' flex flex-row mt-6  mr-2 md:mr-4 h-10'>
+        <div className=' flex flex-row mt-7 md:mr-4 mx-auto mb-4  h-10'>
             <button
                 className={`text-xs md:text-base w-16 md:max-w-80 md:w-24 mr-2 transition ease-in-out py-0 duration-800 ${activeButton === 'Daily' || activeButton === null ? 'border-2' : 'border-0'}`}
                 onClick={() => handleClick('Daily')}

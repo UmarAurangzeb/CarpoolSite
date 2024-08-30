@@ -27,14 +27,15 @@ export default function FindCarSection({ allOwners }: FindCardProps) {
     return (
         <div className='' >
             <div className='flex flex-col max-w-9xl items-center md:items-stretch mt-24'>
-                <div className='flex max-w-9xl lg:justify-items-stretch lg:gap-x-36 mx-auto  '>
+                <div className='flex md:flex-row flex-col w-full lg:justify-center lg:gap-x-36 mx-auto '>
                     <AccesstypeButtons />
                     <SearchBox handleSearch={handleSearch} />
+
                 </div>
                 {
                     allOwners.length == 0 &&
 
-                    <div className='flex flex-col items-center justify-center gap-y-4 mx-auto mt-28 '>
+                    <div className='flex flex-col items-center justify-center gap-y-4 mx-auto mt-28'>
                         <h1 className='text-2xl md:text-4xl font-semibold mx-auto my-auto'>no cars listed currently!</h1>
                         <Link href={'./addcar'}><button>Add a car</button></Link>
                     </div>

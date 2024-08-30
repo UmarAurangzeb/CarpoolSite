@@ -51,7 +51,7 @@ export default async function page({ searchParams }: any) {
   return (
     <>
 
-      <div className='mt-4 w-full min-h-full'>
+      <div className=''>
         <FindCarSection key={AccessType} allOwners={allOwners} />
       </div>
     </>

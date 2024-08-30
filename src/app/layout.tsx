@@ -24,16 +24,14 @@ export default async function RootLayout({
     <html lang="en">
       <Provider session={session}>
         <GoogleAnalytics />
-        <body className={`${inter.className}`}>
-          <div className="relative min-h-[100vh] h-full flex flex-col">
-            <ThemeProvider>
-              <Navbar />
-              <main className="flex-grow">
-                {children}
-              </main>
-              {/* <Footer /> */}
-            </ThemeProvider>
-          </div>
+        <body className={`${inter.className} w-screen`}>
+
+          <ThemeProvider>
+            <Navbar />
+            {children}
+            {/* <Footer /> */}
+          </ThemeProvider>
+
         </body>
       </Provider>
     </html>
