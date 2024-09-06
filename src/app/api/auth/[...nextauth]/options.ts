@@ -57,7 +57,7 @@ export const authOptions: NextAuthOptions = {
       console.log("user from signin", user);
       if (account?.provider === "google") {
         if (!profile?.email?.endsWith("@nu.edu.pk")) {
-          return false;
+          return "/register?error=invalid-email";
         }
         try {
           const user = await prisma.user.findUnique({

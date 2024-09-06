@@ -2,7 +2,7 @@
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 // import { FormFields } from '@/types/authtypes';
 import { z } from "zod"
@@ -12,6 +12,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { FaGoogle } from "react-icons/fa";
 import { signIn } from "next-auth/react"
+import { useSearchParams } from 'next/navigation'
+
 const schema = z.object({
   email: z.string().email().includes("@nu.edu.pk", { message: "Please enter a valid nu id" }),
   password: z.string().min(8)
@@ -20,10 +22,19 @@ const schema = z.object({
 type FormFields = z.infer<typeof schema>
 
 export default function RegisterForm() {
-
-
   const [EmailSent, setEmailSent] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams()
+  const error = searchParams.get('error') || '';
+  const [errorMessage, setErrorMessage] = useState<string>(error)
+
+  useEffect(() => {
+    if (error === "invalid-email") {
+      setErrorMessage("Please sign in with your NU ID only.");
+    }
+  }, [error]);
+
+
   const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<FormFields>(
     {
       resolver: zodResolver(schema)
@@ -88,7 +99,7 @@ export default function RegisterForm() {
             {errors.password && <div className='text-red-600'>{errors.password.message}</div>}
             <Link href={'/login'} className='text-white font-extralight underline-offset-1 mt-1 hover:text-gray-500'>Already have an account?</Link>
             {!EmailSent && <button className='w-44 mx-auto mt-4' disabled={isSubmitting} type="submit">{isSubmitting ? "Loading..." : "Sign Up"}</button>}
-            {EmailSent && <div className='bg-teal-700 w-52 text-sm text-wrap text-clip px-2 py-1 border-2 rounded-sm mt-2 border-white text-sm'>A verification email has been sent to {EMAIL}.please verify your email before signing in.</div>}
+            {EmailSent && <div className='bg-teal-700 w-52 text-wrap text-clip px-2 py-1 border-2 rounded-sm mt-2 border-white text-sm'>A verification email has been sent to {EMAIL}.please verify your email before signing in.</div>}
           </form>
           <div className="my-4 flex items-center w-full">
             <span className="flex-grow h-px bg-gray-500 opacity-25 "></span>
@@ -105,6 +116,7 @@ export default function RegisterForm() {
             <FaGoogle className="mt-1 ml-1" />
             <h3 className="flex-grow">Continue with Google</h3>
           </button>
+          {errorMessage.length > 0 && <p className='mt-2 text-red-500 font-bold'>{errorMessage}</p>}
 
         </div>
 
