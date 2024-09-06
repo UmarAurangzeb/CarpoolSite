@@ -46,7 +46,7 @@ export default function FindCarSection({ allOwners }: FindCardProps) {
 
                 </div>
                 {
-                    allOwners.length == 0 &&
+                    OwnerData.length == 0 &&
 
                     <div className='flex flex-col items-center justify-center gap-y-4 mx-auto mt-28'>
                         <h1 className='text-2xl md:text-4xl font-semibold mx-auto my-auto'>no cars listed currently!</h1>
@@ -55,7 +55,7 @@ export default function FindCarSection({ allOwners }: FindCardProps) {
 
                 }
                 {loader && <img src="loader.svg" alt="" />}
-                {allOwners.length > 0 &&
+                {OwnerData.length > 0 &&
                     <div className='flex flex-wrap gap-y-2 gap-x-2 justify-center mx-auto mt-6  '>
 
                         {OwnerData.filter((item) => {
