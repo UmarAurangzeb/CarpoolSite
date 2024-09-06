@@ -5,14 +5,17 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 export default async function RegisterPage() {
     const session = await getServerSession(authOptions);
     console.log("session from register", session);
-    if (session && session.user.isVerified) {
+    if (session) {
         redirect("/");
     }
     return (
-        <section className="h-screen flex items-center justify-center">
-            <div className="w-[500px] mt-20">
+
+        <div className="flex h-screen justify-center items-center">
+            <section className=" flex items-center justify-center mt-36 mb-20">
                 <RegisterForm />
-            </div>
-        </section>
+            </section>
+
+        </div>
+
     );
 }

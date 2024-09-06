@@ -16,43 +16,59 @@ export const metadata: Metadata = {
 
 
 export default async function page({ searchParams }: any) {
-  const AccessType = searchParams["AccessType"];
-  console.log(AccessType);
+  // const AccessType = searchParams["AccessType"];
+  // console.log(AccessType);
   let allOwners: Owner[] = []
-  if (AccessType === undefined || AccessType === "Daily") {
-    const twentyFourHoursAgo = new Date(Date.now() - (24 * 60 * 60 * 1000));
-    // console.log("time", twentyFourHoursAgo);
-    // console.log(twentyFourHoursAgo);
-    allOwners = await prisma.carowner.findMany({
-      where: {
-        AccessType: "Daily",
-        createdAt: {
-          lte: new Date(Date.now()),
-          gte: twentyFourHoursAgo
-        }
-      }
+  // if (AccessType === undefined || AccessType === "Daily") {
 
-    });
-    // console.log(allOwners)
-  }
-  else if (AccessType === "Semester") {
-    console.log("bhau");
-    allOwners = await prisma.carowner.findMany(
-      {
-        where:
+  // allOwners = await prisma.carowner.findMany({
+  //   where: {
+  //     AccessType: "Daily",
+  //     createdAt: {
+  //       lte: new Date(Date.now()),
+  //       gte: twentyFourHoursAgo
+  //     }
+  //   }
+
+  // });
+  // console.log(allOwners)
+  // }
+  // else if (AccessType === "Semester") {
+  // allOwners = await prisma.carowner.findMany(
+  //   {
+  //     where:
+  //     {
+  //       AccessType: "Semester"
+  //     }
+  //   }
+  // );
+  // console.log(allOwners)
+  // }
+
+  const twentyFourHoursAgo = new Date(Date.now() - (24 * 60 * 60 * 1000));
+  allOwners = await prisma.carowner.findMany({
+    where: {
+      OR: [
         {
           AccessType: "Semester"
+        },
+        {
+          AccessType: "Daily",
+          createdAt: {
+            lte: new Date(Date.now()),
+            gte: twentyFourHoursAgo
+          }
         }
-      }
-    );
-    // console.log(allOwners)
-  }
+      ]
+    }
+  });
+
 
   return (
     <>
 
       <div className=''>
-        <FindCarSection key={AccessType} allOwners={allOwners} />
+        <FindCarSection allOwners={allOwners} />
       </div>
     </>
 

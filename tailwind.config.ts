@@ -18,6 +18,12 @@ const config = {
       },
     },
     extend: {
+      colors: {
+        primary: '#16423C',  // Dark Teal
+        secondary: '#6A9C89', // Muted Green-Gray
+        tertiary: '#C4DAD2',  // Soft Light Green-Gray
+        accent: '#E9EFEC',    // Very Light Gray-Green
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

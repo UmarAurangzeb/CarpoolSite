@@ -10,9 +10,9 @@ import { notifysuccess, notifyfailure } from '../lib/Toast';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useState } from 'react';
-
+import { FaGoogle } from "react-icons/fa";
+import { signIn } from "next-auth/react"
 const schema = z.object({
-  username: z.string().min(4).max(20),
   email: z.string().email().includes("@nu.edu.pk", { message: "Please enter a valid nu id" }),
   password: z.string().min(8)
 })
@@ -31,12 +31,11 @@ export default function RegisterForm() {
   );
   const EMAIL = watch("email");
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
-    const { username, email, password } = data;
+    const { email, password } = data;
     const res = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: username,
         email: email,
         password: password
       }),
@@ -75,15 +74,10 @@ export default function RegisterForm() {
         theme="light"
         transition={Bounce}
       />
-      <div className='bg-gray-800 py-20 border-1 rounded-lg flex justify-center'>
+      <div className='w-fit mx-auto bg-gradient-to-br from-teal-900 to-teal-700 shadow-md px-12 md:px-20 py-10 border-[1px] rounded-lg flex justify-center'>
         <div className='flex flex-col'>
-          <form action="/" className='flex flex-col w-[300px]' onSubmit={handleSubmit(onSubmit)} >
+          <form action="/" className='flex flex-col ' onSubmit={handleSubmit(onSubmit)} >
             <div className='text-3xl mx-auto mb-2 font-serif text-slate-200'>SIGN UP</div>
-            <label htmlFor="username" >username</label>
-            <input {...register("username")} type="text" id='username' placeholder='username' className=''
-            />
-            {errors.username && <div className='text-red-600'>{errors.username.message}</div>}
-
             <label htmlFor="email" >email</label>
             <input {...register("email")} type="text" id='email' placeholder='email' className=''
             />
@@ -94,8 +88,23 @@ export default function RegisterForm() {
             {errors.password && <div className='text-red-600'>{errors.password.message}</div>}
             <Link href={'/login'} className='text-white font-extralight underline-offset-1 mt-1 hover:text-gray-500'>Already have an account?</Link>
             {!EmailSent && <button className='w-44 mx-auto mt-4' disabled={isSubmitting} type="submit">{isSubmitting ? "Loading..." : "Sign Up"}</button>}
-            {EmailSent && <div className='bg-slate-900 w-auto text-clip px-2 py-1 border-2 rounded-sm mt-2 border-black text-sm'>A verification email has been sent to {EMAIL}.please verify your email before signing in.</div>}
+            {EmailSent && <div className='bg-teal-700 w-52 text-sm text-wrap text-clip px-2 py-1 border-2 rounded-sm mt-2 border-white text-sm'>A verification email has been sent to {EMAIL}.please verify your email before signing in.</div>}
           </form>
+          <div className="my-4 flex items-center w-full">
+            <span className="flex-grow h-px bg-gray-500 opacity-25 "></span>
+            <p className="mx-4">OR</p>
+            <span className="flex-grow h-px bg-gray-500 opacity-25"></span>
+          </div>
+          <button
+            className="flex bg-white text-black py-1 mx-auto w-full hover:bg-gray-500"
+            onClick={async (e) => {
+              e.preventDefault();
+              await signIn("google", { callbackUrl: "/" });
+            }}
+          >
+            <FaGoogle className="mt-1 ml-1" />
+            <h3 className="flex-grow">Continue with Google</h3>
+          </button>
 
         </div>
 

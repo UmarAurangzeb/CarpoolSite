@@ -3,11 +3,12 @@
 @tailwind utilities;
 
 body {
-    @apply bg-black text-white
+    @apply text-white;
+    background: linear-gradient(to right, #159957, #155799);
 }
 
 button {
-    @apply bg-slate-900 p-2 border-2 rounded-md hover:bg-slate-950
+    @apply bg-primary p-2 border-2 rounded-md hover:bg-teal-900
 }
 
 label {
@@ -15,5 +16,5 @@ label {
 }
 
 input {
-    @apply px-2 py-2 border-2 rounded-md bg-black text-white mt-1
+    @apply px-2 py-1 md:py-2 border-2 rounded-md bg-white text-black focus:outline-none focus:border-teal-900 mt-1
 }

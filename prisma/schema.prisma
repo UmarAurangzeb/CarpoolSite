@@ -16,8 +16,8 @@ model Carowner {
   OwnerEmail       String
   AccessType       String //Daily or Semester
   BriefDescription String?
-  OwnerName        String
-  carname          String
+  OwnerName        String?
+  carname          String?
   monthlycharges   Int?     @default(0)
   completeRoute    String
   WhatsApp         String
@@ -27,11 +27,14 @@ model Carowner {
 model User {
   email             String     @id @unique
   id                String     @default(cuid())
-  username          String
-  password          String
+  username          String?
+  password          String?
   createdAt         DateTime   @default(now())
-  verificationtoken String
-  tokenexpiry       DateTime
+  verificationtoken String?
+  tokenexpiry       DateTime?
   isVerified        Boolean    @default(false)
   carowners         Carowner[]
 }
+
+//  provider = "postgresql"
+//   url      = env("DATABASE_URL")

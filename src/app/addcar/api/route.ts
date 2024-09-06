@@ -1,17 +1,5 @@
 import prisma from '../../lib/db';
 
-type CarData = {
-    OwnerEmail: string
-    OwnerName: string;
-    CarName: string;
-    AccessType: string;
-    BriefDescription?: string;
-    MonthlyCharges: number;
-    CompleteRoute: string;
-    Whatsapp: string
-
-};
-
 export async function POST(req: Request) {
     try {
         const { ownerData, email } = await req.json();
@@ -22,8 +10,6 @@ export async function POST(req: Request) {
             const newCar = await prisma.carowner.create({
                 data: {
                     OwnerEmail: email,
-                    OwnerName: ownerData.OwnerName,
-                    carname: ownerData.CarName,
                     AccessType: ownerData.AccessType,
                     monthlycharges: ownerData.MonthlyCharges,
                     completeRoute: ownerData.CompleteRoute,
@@ -40,8 +26,6 @@ export async function POST(req: Request) {
         const newCar = await prisma.carowner.create({
             data: {
                 OwnerEmail: email,
-                OwnerName: ownerData.OwnerName,
-                carname: ownerData.CarName,
                 AccessType: ownerData.AccessType,
                 BriefDescription: ownerData.BriefDescription,
                 completeRoute: ownerData.CompleteRoute,

@@ -7,13 +7,13 @@ export default async function LoginPage() {
     const session = await getServerSession(authOptions);
     console.log("session from login page,", session);
 
-    if (session && session.user.isVerified) {
+    if (session) {
         redirect("/");
     }
 
     return (
         <section className="h-screen flex items-center justify-center mt-6">
-            <div className="w-[500px]">
+            <div className="">
                 <LoginForm />
             </div>
         </section>

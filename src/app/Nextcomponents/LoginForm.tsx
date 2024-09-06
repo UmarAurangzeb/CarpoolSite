@@ -68,8 +68,8 @@ export default function LoginForm(): any {
                 transition={Bounce}
             />
 
-            <div className='bg-gray-800 py-20 border-1 rounded-lg flex justify-center'>
-                <form action="/" className='flex flex-col w-[300px]' onSubmit={handleSubmit(onSubmit)} >
+            <div className='w-fit mx-auto bg-gradient-to-br from-teal-900 to-teal-700 shadow-md px-7 md:px-20 py-10 border-[1px] rounded-lg flex justify-center'>
+                <form action="/" className='flex flex-col ' onSubmit={handleSubmit(onSubmit)} >
                     <div className='text-3xl text-slate-200 mx-auto mb-2 font-serif'>SIGN IN</div>
                     <label htmlFor="email" >email</label>
                     <input {...register("email")} type="text" id='email' placeholder='email'
@@ -77,7 +77,7 @@ export default function LoginForm(): any {
                     {errors.email && <div className='text-red-600'>{errors.email.message}</div>}
 
                     <label htmlFor="password" >password</label>
-                    <input {...register("password")} id='password' type="password" placeholder='Password' />
+                    <input {...register("password")} id='password' className='' type="password" placeholder='Password' />
                     {errors.password && <div className='text-red-600'>{errors.password.message}</div>}
                     <Link href={'/register'} className='text-white font-extralight underline-offset-1 mt-1 hover:text-gray-500'>Dont have an account?</Link>
                     <button className='w-44 mx-auto mt-4' disabled={isSubmitting} type="submit">{isSubmitting ? "Loading..." : "Sign In"}</button>

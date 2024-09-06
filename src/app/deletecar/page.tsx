@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export default async function page() {
     const session = await getServerSession(authOptions);
-    if (!session || (session && session.user.isVerified !== true)) {
+    if (!session) {
         redirect('/register');
     }
     const OwnerData = await prisma.carowner.findMany({
@@ -28,7 +28,7 @@ export default async function page() {
     return (
         <>
             <div>
-                <div className='mt-20 ml-16 lg:text-4xl text-3xl font-bold underline underline-offset-8 decoration-amber-500'>My Listing</div>
+                <div className='mt-24 lg:text-4xl text-3xl font-bold underline underline-offset-8 text-center decoration-teal-500'>My Listing</div>
                 {
                     OwnerData.map((user) => {
                         return (

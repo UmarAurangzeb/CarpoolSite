@@ -35,7 +35,7 @@ export default function Navbar() {
 
 
     return (
-        <div className='flex justify-between sm:mx-auto max-w-8xl py-3 px-8 bg-slate-950 fixed top-0 w-full  z-[10000] '>
+        <div className='flex justify-between sm:mx-auto max-w-8xl px-8 bg-primary fixed lg:py-5 py-3 top-0 w-full  z-[10000] '>
             <div className='flex flex-col items-center lg:hidden'>
                 <div className='text-2xl cursor-pointer pt-2' onClick={handleClick}>{iconClicked ?
                     (
@@ -50,7 +50,7 @@ export default function Navbar() {
             </div>
             <NavLinksLeft />
             <div className='text-center flex-grow md:justify-center flex justify-center items-center flex-col mt-1 lg:mr-28 lg:pr-16 '>
-                <h1 className='font-serif xlg:text-4xl text-2xl tex '>FAST CARPOOL</h1>
+                <h1 className='font-serif xlg:text-4xl text-white text-2xl tex '>FAST CARPOOL</h1>
                 <p className='text-gray-500'></p>
             </div>
             <NavLinksRight />

@@ -18,7 +18,7 @@ type FormFields = z.infer<typeof schema>
 
 export default function Page({ email }: any) {
     const router = useRouter();
-    const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<FormFields>(
+    const { register, handleSubmit, watch, reset, formState: { errors, isSubmitting } } = useForm<FormFields>(
         {
             resolver: zodResolver(schema)
         }
@@ -34,24 +34,29 @@ export default function Page({ email }: any) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ownerData: ownerData, email: email }),
             })
+            if (!res.ok) {
+                notifyfailure("error adding car!");
+                return;
+            }
 
             if (res.status == 200) {
                 notifysuccess("Car registered Successfully");
-                router.push('/');
+                reset();
+
             }
             const result = await res.json();
             notifyfailure(result.message);
         }
 
-        catch (err) { console.log(err); }
+        catch (err) { notifyfailure("error adding car!") }
     }
     // const handleChange = (e: any) => {
     //     setaccesstypestate(e.target.value);
 
     return (
         <>
-            <div className="h-full w-full mt-20 flex flex-col items-center justify-center">
-                <div className='bg-slate-900 w-full md:w-4/5 '>
+            <div className=" flex flex-col items-center justify-center">
+                <div className=' w-full md:w-4/5 '>
                     <ToastContainer
                         position="bottom-right"
                         autoClose={3000}
@@ -68,20 +73,11 @@ export default function Page({ email }: any) {
                     <form action="/" className='flex flex-col gap-y-2 max-w-7xl pb-4 w-2/3 mx-auto' onSubmit={handleSubmit(onSubmit)} >
                         <h1 className="text-4xl mt-28 text-white font-semibold  mx-auto mb-3">Owner Details</h1>
                         {/* 1 */}
-                        <label htmlFor="OwnerName" >OwnerName</label>
-                        <input {...register("OwnerName")} type="text" id='OwnerName' placeholder='OwnerName' className=''
-                        />
-                        {errors.OwnerName && <div className='text-red-600'>{errors.OwnerName.message}</div>}
-                        {/* 2 */}
-                        <label htmlFor="CarName" >Car Name</label>
-                        <input {...register("CarName")} type="text" id='CarName' placeholder='CarName' className=''
-                        />
-                        {errors.CarName && <div className='text-red-600'>{errors.CarName.message}</div>}
                         {/* 3 */}
                         <label htmlFor="AccessType" className='mt-2' >AccessType</label>
-                        <select {...register("AccessType")} className='p-4 pl-1'>
-                            <option value="Daily">Daily</option>
-                            <option value="Semester">Semester</option>
+                        <select {...register("AccessType")} className='p-4 pl-1 bg-primary'>
+                            <option value="Daily" className='bg-primary hover:bg-teal-950'>Daily</option>
+                            <option value="Semester" className='bg-primary'>Semester</option>
                         </select>
                         {errors.AccessType && <div className='text-red-600'>{errors.AccessType.message}</div>}
                         {/* 4 */}
@@ -95,7 +91,7 @@ export default function Page({ email }: any) {
                         {/* 5 */}
 
                         {accesstype === "Semester" && <><label htmlFor="MonthlyCharges" >Monthly Charges</label>
-                            <input {...register("MonthlyCharges")} type="text" id='MonthlyCharges' className=''
+                            <input {...register("MonthlyCharges")} placeholder='7000' type="text" id='MonthlyCharges' className=''
                             />
                             {errors.MonthlyCharges && <div className='text-red-600'>{errors.MonthlyCharges.message}</div>}
                         </>
@@ -107,7 +103,7 @@ export default function Page({ email }: any) {
                         {errors.CompleteRoute && <div className='text-red-600'>{errors.CompleteRoute.message}</div>}
                         {/* 7 */}
                         <label htmlFor="Whatsapp">WhatsApp</label>
-                        <input {...register("Whatsapp")} type="text" id='Whatsapp' className=''
+                        <input {...register("Whatsapp")} placeholder='03001233445' type="text" id='Whatsapp' className=''
                         />
                         {errors.Whatsapp && <div className='text-red-600'>{errors.Whatsapp.message}</div>}
                         <button className='w-44 mx-auto mt-4' type="submit">{isSubmitting ? "Loading..." : "Submit"}</button>

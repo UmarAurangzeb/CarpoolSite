@@ -1,0 +1,9 @@
+-- AlterTable
+ALTER TABLE "Carowner" ALTER COLUMN "OwnerName" DROP NOT NULL,
+ALTER COLUMN "carname" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "username" DROP NOT NULL,
+ALTER COLUMN "password" DROP NOT NULL,
+ALTER COLUMN "verificationtoken" DROP NOT NULL,
+ALTER COLUMN "tokenexpiry" DROP NOT NULL;

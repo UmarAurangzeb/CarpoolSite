@@ -5,14 +5,17 @@ import { SendEmail } from "../../mail/sendemail";
 import { v4 as uuidv4 } from 'uuid';
 export async function POST(request: Request) {
     try {
-        const { username, email, password } = await request.json();
-        console.log({ username, email, password });
+        const { email, password } = await request.json();
+        console.log({ email, password });
 
         const user = await prisma.user.findUnique({
             where: {
                 email: email,
             },
         })
+        if (user && user.password === null) {
+            return Response.json({ message: "Registation failed" }, { status: 406 })
+        }
         if (user && user.isVerified == true) {
             console.log("user already exists");
             return Response.json({ message: "user already exists" }, { status: 406 })
@@ -47,7 +50,6 @@ export async function POST(request: Request) {
             const data = await setParams(password);
             const newuser = await prisma.user.create({
                 data: {
-                    username: username,
                     email: email,
                     password: data.hashedPassword,
                     verificationtoken: data.verificationtoken,
